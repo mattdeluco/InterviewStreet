@@ -7,19 +7,17 @@ import java.util.List;
 public class Solution {
 
 	private static List<List<Integer>> testList;
-
-	public static void sort(List<Integer> list) {
+	
+	public static void countSwaps(List<Integer> list) {
 		int swaps = 0;
+		
 		for (int i = 1 ; i < list.size() ; i++) {
-			int j = i;
-			Integer x = list.get(j);
-			while (j > 0 && x.compareTo(list.get(j-1)) < 0) {
-				list.set(j, list.get(j-1));
-				list.set(j-1, x);
-				j--;
-				swaps++;
+			for (int j = i ; j > 0 ; j--) {
+				if (list.get(i).compareTo(list.get(j-1)) < 0)
+					swaps++;
 			}
 		}
+		
 		System.out.println(swaps);
 	}
 	
@@ -43,7 +41,7 @@ public class Solution {
 		}
 		
 		for (List<Integer> list : testList) {
-			sort(list);
+			countSwaps(list);
 		}
 	}
 
