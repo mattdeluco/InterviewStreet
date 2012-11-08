@@ -14,22 +14,19 @@ public class Solution {
 		List<String> list = new ArrayList<String>(left.size() + right.size());
 		int lIdx = 0, rIdx = 0;
 		
-		while (lIdx < left.size() || rIdx < right.size()) {
-			if (lIdx < left.size() && rIdx < right.size()) {
-				Integer l = Integer.parseInt(left.get(lIdx));
-				Integer r = Integer.parseInt(right.get(rIdx));
-				if (l > r) {
-					list.add(right.get(rIdx++));
-					swapCount += left.size() - lIdx;
-				} else {
-					list.add(left.get(lIdx++));
-				}
-			} else if (lIdx < left.size()) {
-				list.add(left.get(lIdx++));
-			} else if (rIdx < right.size()) {
+		while (lIdx < left.size() && rIdx < right.size()) {
+			Integer l = Integer.parseInt(left.get(lIdx));
+			Integer r = Integer.parseInt(right.get(rIdx));
+			if (l > r) {
 				list.add(right.get(rIdx++));
+				swapCount += left.size() - lIdx;
+			} else {
+				list.add(left.get(lIdx++));
 			}
 		}
+		
+		list.addAll(left.subList(lIdx, left.size()));
+		list.addAll(right.subList(rIdx, right.size()));
 		
 		return list;
 		
@@ -46,8 +43,7 @@ public class Solution {
 		
 		return merge(left, right);
 	}
-	
-	
+
 	public static void main(String[] args) throws IOException {
 		
 		LineNumberReader lnr = new LineNumberReader(new InputStreamReader(System.in));
@@ -59,7 +55,7 @@ public class Solution {
 			Integer numValues = Integer.parseInt(lnr.readLine());
 			List<String> values = new ArrayList<String>(Arrays.asList(lnr.readLine().split("\\s+")));
 			
-			List<String> list = mergeSort(values);
+			mergeSort(values);
 			
 			System.out.println(swapCount);
 		}
