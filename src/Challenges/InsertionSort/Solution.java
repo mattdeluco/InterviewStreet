@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Solution {
 	
-	private static Integer swapCount;
+	private static Long swapCount;
 	
 	public static List<String> merge(List<String> left, List<String> right) {
 		
@@ -50,7 +50,7 @@ public class Solution {
 		int numTests = Integer.parseInt(lnr.readLine());
 		
 		while (numTests-- > 0) {
-			swapCount = 0;
+			swapCount = 0L;
 			
 			Integer numValues = Integer.parseInt(lnr.readLine());
 			List<String> values = new ArrayList<String>(Arrays.asList(lnr.readLine().split("\\s+")));
