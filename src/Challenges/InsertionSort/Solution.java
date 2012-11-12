@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
@@ -9,8 +7,7 @@ import java.util.List;
 
 public class Solution {
 	
-	private static Integer mergeSwaps;
-	private static Integer insertionSwaps;
+	private static Integer swapCount;
 	
 	public static List<String> merge(List<String> left, List<String> right) {
 		
@@ -22,7 +19,7 @@ public class Solution {
 			Integer r = Integer.parseInt(right.get(rIdx));
 			if (l > r) {
 				list.add(right.get(rIdx++));
-				mergeSwaps += left.size() - lIdx;
+				swapCount += left.size() - lIdx;
 			} else {
 				list.add(left.get(lIdx++));
 			}
@@ -46,22 +43,6 @@ public class Solution {
 		
 		return merge(left, right);
 	}
-	
-	public static void insertionSort(List<String> list) {
-		
-		for (int i = 0; i < list.size(); i++) {
-			for (int j = i; j > 0; j--) {
-				Integer j1 = Integer.parseInt(list.get(j));
-				Integer j0 = Integer.parseInt(list.get(j-1));
-				if (j1 < j0) {
-					list.set(j, j0.toString());
-					list.set(j-1, j1.toString());
-					insertionSwaps++;
-				}
-			}
-		}
-		
-	}
 
 	public static void main(String[] args) throws IOException {
 		
@@ -69,30 +50,16 @@ public class Solution {
 		int numTests = Integer.parseInt(lnr.readLine());
 		
 		while (numTests-- > 0) {
-			int perm = 0;
-			mergeSwaps = 0;
-			insertionSwaps = 0;
+			swapCount = 0;
 			
-			Integer test = Integer.parseInt(lnr.readLine());  // reads the line with number of values for test
-			
+			Integer numValues = Integer.parseInt(lnr.readLine());
 			List<String> values = new ArrayList<String>(Arrays.asList(lnr.readLine().split("\\s+")));
-			String[] insertionSortArray = new String[values.size()];
-			Permutations<String> p = Permutations.create(values.toArray(new String[0]), insertionSortArray);
 			
-			while (p.next()) {
-				mergeSwaps = 0;
-				insertionSwaps = 0;
-				String[] mergeSortArray = Arrays.copyOf(insertionSortArray, insertionSortArray.length);
-				insertionSort(Arrays.asList(insertionSortArray));
-				mergeSort(Arrays.asList(mergeSortArray));
-				if (!insertionSwaps.equals(mergeSwaps)) {
-					System.out.println("Test Length: " + test + ", permutation: " + perm++);
-					System.out.println("  Insertion Sort: " + insertionSwaps + ", Merge Sort: " + mergeSwaps);
-					System.out.println(Arrays.toString(insertionSortArray));
-				}
-			}
+			mergeSort(values);
 			
+			System.out.println(swapCount);
 		}
-	}
 		
+	}
+
 }
